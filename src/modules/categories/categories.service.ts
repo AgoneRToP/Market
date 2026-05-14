@@ -14,6 +14,7 @@ export class CategoryService {
     const data = await this.categoryModel
       .find()
       .populate('parentCategory', 'name');
+
     return {
       success: true,
       data,
@@ -34,6 +35,11 @@ export class CategoryService {
   }
 
   async create(payload: CreateCategoryDto) {
+    const existing = await this.categoryModel.findOne({ name: payload.name });
+
+    if (existing)
+      throw new NotFoundException('Категория с таким названием уже существует');
+
     const data = await this.categoryModel.create(payload);
 
     return {
@@ -43,6 +49,11 @@ export class CategoryService {
   }
 
   async update(id: string, payload: UpdateCategoryDto) {
+    const existing = await this.categoryModel.findOne({ name: payload.name });
+
+    if (existing && existing._id.toString() !== id)
+      throw new NotFoundException('Категория с таким названием уже существует');
+
     const data = await this.categoryModel.findByIdAndUpdate(
       id,
       { $set: payload },
@@ -59,6 +70,7 @@ export class CategoryService {
 
   async delete(id: string) {
     const data = await this.categoryModel.findByIdAndDelete(id).exec();
+    
     if (!data) throw new NotFoundException('Категория не найдена');
 
     return {

@@ -11,7 +11,7 @@ import { CategoryService } from './categories.service';
 import { CreateCategoryDto, UpdateCategoryDto } from './dtos';
 import { ParseObjectIdPipe } from '@nestjs/mongoose';
 
-@Controller('admin/categories')
+@Controller('categories')
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
 
