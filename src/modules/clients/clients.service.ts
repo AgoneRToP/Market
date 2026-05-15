@@ -36,4 +36,25 @@ export class ClientsService {
       data,
     };
   }
+
+  async update(id: string, payload: CreateClientDto) {
+    const data = await this.clientsModel.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true },
+    );
+
+    return {
+      success: true,
+      data,
+    };
+  }
+
+  async delete(id: string) {
+    await this.clientsModel.findByIdAndDelete(id);
+
+    return {
+      success: true,
+    };
+  }
 }

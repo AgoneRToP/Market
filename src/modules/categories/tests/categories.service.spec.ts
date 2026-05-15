@@ -6,10 +6,10 @@ describe('CategoriesService', () => {
   let categoryService: CategoryService;
 
   const categoryMockModel = {
-    find:              jest.fn(),
-    findById:          jest.fn(),
-    findOne:           jest.fn(),
-    create:            jest.fn(),
+    find: jest.fn(),
+    findById: jest.fn(),
+    findOne: jest.fn(),
+    create: jest.fn(),
     findByIdAndUpdate: jest.fn(),
     findByIdAndDelete: jest.fn(),
   };
@@ -67,8 +67,12 @@ describe('CategoriesService', () => {
       populate: jest.fn().mockResolvedValue(null),
     });
 
-    await expect(categoryService.getOne('999')).rejects.toThrow(NotFoundException);
-    await expect(categoryService.getOne('999')).rejects.toThrow('Категория не найдена');
+    await expect(categoryService.getOne('999')).rejects.toThrow(
+      NotFoundException,
+    );
+    await expect(categoryService.getOne('999')).rejects.toThrow(
+      'Категория не найдена',
+    );
   });
 
   // ─── create ──────────────────────────────────────────────────────────────────
@@ -94,7 +98,9 @@ describe('CategoriesService', () => {
     // findOne returns an existing doc → duplicate
     categoryMockModel.findOne.mockResolvedValue({ _id: '1', ...dto });
 
-    await expect(categoryService.create(dto)).rejects.toThrow(NotFoundException);
+    await expect(categoryService.create(dto)).rejects.toThrow(
+      NotFoundException,
+    );
     await expect(categoryService.create(dto)).rejects.toThrow(
       'Категория с таким названием уже существует',
     );
@@ -129,7 +135,9 @@ describe('CategoriesService', () => {
       name: dto.name,
     });
 
-    await expect(categoryService.update('1', dto)).rejects.toThrow(NotFoundException);
+    await expect(categoryService.update('1', dto)).rejects.toThrow(
+      NotFoundException,
+    );
     await expect(categoryService.update('1', dto)).rejects.toThrow(
       'Категория с таким названием уже существует',
     );
@@ -141,8 +149,12 @@ describe('CategoriesService', () => {
     categoryMockModel.findOne.mockResolvedValue(null);
     categoryMockModel.findByIdAndUpdate.mockResolvedValue(null);
 
-    await expect(categoryService.update('999', dto)).rejects.toThrow(NotFoundException);
-    await expect(categoryService.update('999', dto)).rejects.toThrow('Категория не найдена');
+    await expect(categoryService.update('999', dto)).rejects.toThrow(
+      NotFoundException,
+    );
+    await expect(categoryService.update('999', dto)).rejects.toThrow(
+      'Категория не найдена',
+    );
   });
 
   // ─── delete ──────────────────────────────────────────────────────────────────
@@ -157,7 +169,10 @@ describe('CategoriesService', () => {
 
     const result = await categoryService.delete('1');
 
-    expect(result).toEqual({ success: true, message: 'Категория успешно удалена' });
+    expect(result).toEqual({
+      success: true,
+      message: 'Категория успешно удалена',
+    });
     expect(categoryMockModel.findByIdAndDelete).toHaveBeenCalledWith('1');
   });
 
@@ -166,7 +181,11 @@ describe('CategoriesService', () => {
       exec: jest.fn().mockResolvedValue(null),
     });
 
-    await expect(categoryService.delete('999')).rejects.toThrow(NotFoundException);
-    await expect(categoryService.delete('999')).rejects.toThrow('Категория не найдена');
+    await expect(categoryService.delete('999')).rejects.toThrow(
+      NotFoundException,
+    );
+    await expect(categoryService.delete('999')).rejects.toThrow(
+      'Категория не найдена',
+    );
   });
 });
