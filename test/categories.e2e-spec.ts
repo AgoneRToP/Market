@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Connection } from 'mongoose';
 import { App } from 'supertest/types';
 
-describe('AppController', async () => {
+describe('CategoriesController', async () => {
   let app: INestApplication<App>;
   let mongooseConnection: Connection;
 
@@ -20,7 +20,7 @@ describe('AppController', async () => {
   });
 
   beforeEach(async () => {
-    
+
   })
 
   afterEach(async () => {
