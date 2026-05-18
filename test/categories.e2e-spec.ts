@@ -23,6 +23,10 @@ describe('CategoriesController', async () => {
 
   })
 
+  // it('/categories (GET)', async () => {
+  //   return request(app.getHttpServer()).get()
+  // })
+
   afterEach(async () => {
     if (mongooseConnection) await mongooseConnection.close();
     await app.close();

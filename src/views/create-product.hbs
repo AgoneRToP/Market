@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить Продукт</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5" style="max-width: 600px;">
+        <a href="/" class="btn btn-sm btn-secondary mb-3">&larr; На главную</a>
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white"><h5>Добавление товара на склад</h5></div>
+            <div class="card-body">
+                <form action="/product/new" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Название товара</label>
+                        <input type="text" name="title" class="form-control" placeholder="Смартфон iPhone 15" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Цена за единицу (сум)</label>
+                        <input type="number" name="price" class="form-control" min="0" placeholder="12000000" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Доступное количество на складе</label>
+                        <input type="number" name="stock" class="form-control" min="0" placeholder="50" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Добавить продукт</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

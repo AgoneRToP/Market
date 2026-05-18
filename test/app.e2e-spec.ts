@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Connection } from 'mongoose';
 import { App } from 'supertest/types';
+import request from 'supertest';
 
 describe('AppController', async () => {
   let app: INestApplication<App>;
@@ -20,7 +21,27 @@ describe('AppController', async () => {
   });
 
   beforeEach(async () => {
-    
+    if (process.env.NODE_ENV === 'test') {
+      const collections = mongooseConnection.collections;
+      for (const key in collections) {
+        const collection = collections[key];
+        await collection.deleteMany({});
+      }
+    }
+  });
+
+  it('should be defined', () => {
+    expect(app).toBeDefined();
+  });
+
+  it('/categories (GET)', async () => {
+    const registerResponse = await request(app.getHttpServer())
+      .post('/categories')
+      .send({
+        
+      })
+
+
   })
 
   afterEach(async () => {
